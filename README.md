@@ -72,6 +72,20 @@ All three passwords were recovered purely through **dictionary attacks** — no 
 ![Flag 3 - PDF3 unlocked](screenshots/flag3-pdf3-unlocked.png)
 ![Flag 3 - PDF3 unlocked (alt view)](screenshots/flag3-pdf3-unlocked-alt.png)
 
+
+
+## Challenges Faced
+
+Running the attacks wasn't just "load hash, get password" — several real-world snags came up along the way:
+
+1. **Johnny installer conflict** — Got an "installation already exists" error when installing Johnny, which had to be resolved before the tool would open.
+2. **Executable path confusion** — Initially tried pointing Johnny to `john.exe` while still browsing inside the *unextracted* `.zip` archive instead of the actual extracted folder, which caused the path to fail.
+3. **Insufficient wordlist coverage** — The built-in/default wordlist (~100 words) was exhausted without finding a match, returning an "access denied" result.
+4. **File format incompatibility** — Windows' native "Extract All" tool couldn't open `rockyou.txt.gz`; had to install **7-Zip** to properly extract the wordlist.
+5. **Browser performance limits with large wordlists** — Loading the full `rockyou.txt` (14.3 million words) into the browser-based cracking tool made the page unresponsive, since the file was too heavy for the browser to handle. Switched to a smaller wordlist (`fasttrack.txt`), which completed the attack successfully without freezing the page.
+
+These issues ended up being as instructive as the cracking itself — troubleshooting tool/environment setup is a core part of real-world penetration testing work, not just running the attack.
+
 ## Key Takeaways
 
 - **Weak passwords are the real vulnerability**, not the encryption algorithm — all three passwords were common/simple strings that a small wordlist cracked in seconds.
